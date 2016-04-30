@@ -18,16 +18,16 @@ private fun addEdge(graph: HashMap<String, HashSet<String>>,
 
     val adjacentVertices: HashSet<String>
     if (graph.containsKey(fromVertex)) {
-        adjacentVertices = graph[fromVertex]!!
+        adjacentVertices = graph[fromVertex] ?: HashSet();
     } else {
-        adjacentVertices = HashSet<String>()
+        adjacentVertices = HashSet()
         graph.put(fromVertex, adjacentVertices)
     }
 
     adjacentVertices.add(toVertex)
 
     if (!graph.containsKey(toVertex)) {
-        graph.put(toVertex, HashSet<String>())
+        graph.put(toVertex, HashSet())
     }
 }
 
@@ -36,7 +36,7 @@ private fun containsCycle(graph: HashMap<String, HashSet<String>>): Boolean {
 
     for (vertex in graph.keys) {
         println("Depth search from: $vertex")
-        if (depthSearchForCycle(graph, visitedVertices, HashSet<String>(), vertex)) {
+        if (depthSearchForCycle(graph, visitedVertices, HashSet(), vertex)) {
             return true
         }
     }
@@ -63,9 +63,12 @@ private fun depthSearchForCycle(graph: HashMap<String, HashSet<String>>,
         reachableVertices.add(currentVertex)
 
         // continue search in vertices adjacent to current
-        for (adjacentVertex in graph[currentVertex]!!) {
-            if (depthSearchForCycle(graph, visitedVertices, reachableVertices, adjacentVertex)) {
-                return true
+        val adjacentVertices = graph[currentVertex]
+        if (adjacentVertices != null) {
+            for (adjacentVertex in adjacentVertices) {
+                if (depthSearchForCycle(graph, visitedVertices, reachableVertices, adjacentVertex)) {
+                    return true
+                }
             }
         }
 
