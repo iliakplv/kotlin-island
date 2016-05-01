@@ -2,21 +2,22 @@ import java.util.*
 
 
 fun main(args: Array<String>) {
-    val graph = HashMap<String, HashSet<String>>()
+    val graph: MutableMap<String, MutableSet<String>> = HashMap();
 
     addEdge(graph, "a", "b")
     addEdge(graph, "b", "c")
     addEdge(graph, "c", "d")
-    addEdge(graph, "c", "a") // cycle edge
+    addEdge(graph, "x", "a")
+    addEdge(graph, "x", "y")
 
     println("\nCycle found: ${containsCycle(graph)}")
 }
 
-private fun addEdge(graph: HashMap<String, HashSet<String>>,
+private fun addEdge(graph: MutableMap<String, MutableSet<String>>,
                     fromVertex: String,
                     toVertex: String) {
 
-    val adjacentVertices: HashSet<String>
+    val adjacentVertices: MutableSet<String>
     if (graph.containsKey(fromVertex)) {
         adjacentVertices = graph[fromVertex] ?: HashSet();
     } else {
@@ -31,7 +32,7 @@ private fun addEdge(graph: HashMap<String, HashSet<String>>,
     }
 }
 
-private fun containsCycle(graph: HashMap<String, HashSet<String>>): Boolean {
+private fun containsCycle(graph: MutableMap<String, MutableSet<String>>): Boolean {
     val visitedVertices = HashSet<String>()
 
     for (vertex in graph.keys) {
@@ -44,9 +45,9 @@ private fun containsCycle(graph: HashMap<String, HashSet<String>>): Boolean {
     return false
 }
 
-private fun depthSearchForCycle(graph: HashMap<String, HashSet<String>>,
-                                visitedVertices: HashSet<String>,
-                                reachableVertices: HashSet<String>,
+private fun depthSearchForCycle(graph: MutableMap<String, MutableSet<String>>,
+                                visitedVertices: MutableSet<String>,
+                                reachableVertices: MutableSet<String>,
                                 currentVertex: String): Boolean {
 
     // search in unvisited vertices
