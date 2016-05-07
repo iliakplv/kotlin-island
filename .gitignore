@@ -1,2 +1,6 @@
+# IDE config files
 /.idea/*
 *.iml
+
+# Libs
+/lib/*
