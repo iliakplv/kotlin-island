@@ -1,8 +1,22 @@
 fun main(args: Array<String>) {
+
     println("\ntestNullSafety")
     testNullSafety()
+
+    println("\ntestFunctions")
+    testFunctions()
     println("\ntestExtensionFunctions")
     testExtensionFunctions()
+    println("\ntestHighOrderAndLambdas")
+    testHighOrderAndLambdas()
+
+    println("\ntestDataClasses")
+    testDataClasses()
+    println("\ntestProperties")
+    testProperties()
+    println("\ntestDelegates")
+    testDelegates()
+
     println("\ntestWithStatement")
     testWithStatement()
     println("\ntestSingleton")
@@ -26,17 +40,76 @@ fun testNullSafety() {
     }
 }
 
-/* ========================= lambdas ========================= */
+/* ========================= functions ========================= */
+// Unit can be omitted
+fun testFunctions(): Unit {
+    defaultParams("a", false)
+    defaultParams("b")
+    defaultParams()
+    defaultParams(s = "abc", b = false) // named params
+    println(square(4)) // (single expression)
+    println(2 add 3) // (infix) 2.add(3) also valid
+    printNumbers(0, 1, 2, 3)
+}
 
+fun printNumbers(vararg ints: Int) {
+    fun printNumber(i: Int) {
+        // local function
+        print("$i ")
+    }
+    for (i in ints) {
+        printNumber(i)
+    }
+    println()
+}
+
+fun defaultParams(s: String = "", b: Boolean = true) {
+    // do something
+}
+
+fun square(i: Int) = i * i // single expression function
+
+infix fun Int.add(i: Int) = this + i // infix function
+
+/* ========================= extension functions ========================= */
+fun testExtensionFunctions() {
+    println(" abc ".trimUp())
+}
+
+fun String.trimUp(): String {
+    return trim().toUpperCase()
+}
+
+/* ========================= high-order and lambdas ========================= */
+fun testHighOrderAndLambdas() {
+    call("high-order", ::myPrint)
+    call("lambda", { s -> println(s) });
+    listOf(0, 3, 4, 5, 2, 8, 1).filter { it > 3 }.map { print("$it ") }
+    println()
+}
+
+fun call(arg: String, function: (s: String) -> Unit) {
+    function(arg);
+}
+
+fun myPrint(s: String) {
+    println(s);
+}
 
 /* ========================= data classes ========================= */
+fun testDataClasses() {
 
+}
 
 /* ========================= properties ========================= */
+fun testProperties() {
 
+}
 
 /* ========================= delegates ========================= */
+fun testDelegates() {
 
+}
 
 /* ========================= singleton ========================= */
 fun testSingleton() {
@@ -51,15 +124,6 @@ object Resource {
         println("Lazy init")
         return "qwerty"
     }
-}
-
-/* ========================= extension functions ========================= */
-fun testExtensionFunctions() {
-    println(" abc ".trimUp())
-}
-
-fun String.trimUp(): String {
-    return trim().toUpperCase()
 }
 
 /* ========================= with statement ========================= */
