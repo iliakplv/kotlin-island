@@ -69,7 +69,7 @@ fun defaultParams(s: String = "", b: Boolean = true) {
 
 fun square(i: Int) = i * i // single expression function
 
-infix fun Int.add(i: Int) = this + i // infix function
+infix fun Int.add(i: Int) = this + i // infix function (also extension function)
 
 /* ========================= extension functions ========================= */
 fun testExtensionFunctions() {
