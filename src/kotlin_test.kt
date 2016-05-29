@@ -41,8 +41,8 @@ fun testNullSafety() {
 }
 
 /* ========================= functions ========================= */
-// Unit can be omitted
 fun testFunctions(): Unit {
+    // Unit can be omitted
     defaultParams("a", false)
     defaultParams("b")
     defaultParams()
