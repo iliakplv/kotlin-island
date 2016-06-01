@@ -17,8 +17,8 @@ fun main(args: Array<String>) {
     println("\ntestDelegates")
     testDelegates()
 
-    println("\ntestWithStatement")
-    testWithStatement()
+    println("\ntestStandard")
+    testStandard()
     println("\ntestSingleton")
     testSingleton()
 }
@@ -126,12 +126,18 @@ object Resource {
     }
 }
 
-/* ========================= with statement ========================= */
-fun testWithStatement() {
+/* ========================= standard ========================= */
+fun testStandard() {
     val m = MyClass()
     with(m) {
         doOne()
         doTwo()
+    }
+    m.apply { doOne() }
+    m.let { it.doOne() }
+    m.run { doOne() }
+    repeat(3) {
+        m.doTwo()
     }
 }
 
